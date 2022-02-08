@@ -1,51 +1,47 @@
-const express = require("express");
-const cors = require("cors");
+const http = require("http")
+const app = require("./app")
 
-const app = express();
+const normalizePort = val => {
+    const port = parseInt(val, 10)
 
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: true }));
-
-// database
-const db = require("./app/models");
-const Role = db.role;
-
-db.sequelize.sync();
-// force: true will drop the table if it already exists
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync Database with { force: true }');
-  initial();
-});
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Groupomania API" });
-});
-
-// routes
-require('./app/routes/auth.routes')(app);
-require('./app/routes/post.routes')(app);
-
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
-// module.exports(initialize)
-function initial() {
-  Role.create({
-    id: 1,
-    name: "user"
-  });
-  
-  Role.create({
-    id: 2,
-    name: "admin"
-  });
+    if (isNaN(port)) {
+        return val
+    }
+    if (port >= 0) {
+        return port
+    }
+    return false
 }
+const port = normalizePort(process.env.PORT || "8080")
+app.set("port", port)
+
+const errorHandler = error => {
+    if (error.syscall !== "listen") {
+        throw error
+    }
+    const address = server.address()
+    const bind = typeof address === "string" ? "pipe " + address : "port: " + port
+    switch (error.code) {
+        case "EACCES":
+            console.error(bind + " requires elevated privileges.")
+            process.exit(1)
+            break
+        case "EADDRINUSE":
+            console.error(bind + " is already in use.")
+            process.exit(1)
+            break
+        default:
+            throw error
+    }
+}
+
+const server = http.createServer(app)
+
+server.on("error", errorHandler)
+server.on("listening", () => {
+    const address = server.address()
+    const bind = typeof address === "string" ? "pipe " + address : "port " + port
+    console.log("Listening on " + bind)
+})
+
+server.listen(port)
