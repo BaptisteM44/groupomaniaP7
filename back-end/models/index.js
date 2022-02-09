@@ -45,14 +45,14 @@ db.sequelize = sequelize
 db.Sequelize = Sequelize
 
 db.users = require("./user.js")(sequelize, Sequelize)
-db.messages = require("./message.js")(sequelize, Sequelize)
+db.posts = require("./post.js")(sequelize, Sequelize)
 db.comments = require("./comment.js")(sequelize, Sequelize)
 
-db.comments.belongsTo(db.messages)
+db.comments.belongsTo(db.posts)
 db.comments.belongsTo(db.users)
-db.messages.hasMany(db.comments)
-db.messages.belongsTo(db.users)
-db.users.hasMany(db.messages)
+db.posts.hasMany(db.comments)
+db.posts.belongsTo(db.users)
+db.users.hasMany(db.posts)
 db.users.hasMany(db.comments)
 
 module.exports = db

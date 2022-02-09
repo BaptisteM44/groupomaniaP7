@@ -27,7 +27,7 @@ exports.signup = (req, res, next) => {
             password: hash,
         })
         user.save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
+        .then(() => res.status(201).json({ post: "Utilisateur créé !" }))
         .catch(error => res.status(401).json({ error }))
     })
     .catch(error => res.status(500).json({ error }))
@@ -49,7 +49,7 @@ exports.login = (req, res, next) => {
                 return res.status(401).json({ error: "Mot de passe incorrect !" })
             }
             res.status(200).json({
-                message: "Utilisateur connecté !",
+                post: "Utilisateur connecté !",
                 userId: user.id,
                 role: user.isAdmin,
                 userName : user.userName,

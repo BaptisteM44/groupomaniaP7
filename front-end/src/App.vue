@@ -1,0 +1,31 @@
+<template>
+  <div id="app">
+    <NewPost />
+    <Posts />
+    
+
+  </div>
+</template>
+
+<script>
+import Posts from './components/Posts.vue'
+import NewPost from './components/NewPost.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Posts, NewPost
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
