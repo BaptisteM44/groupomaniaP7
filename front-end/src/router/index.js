@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
+import Feed from "@/views/Feed.vue";
+import Post from "@/views/Post.vue";
 
 const routes = [
-    { path: '/', redirect: '/login' },
+    { path: '/', redirect: '/feed' },
     {
         path: "/login",
         name: "Login",
@@ -21,11 +23,19 @@ const routes = [
         },
       },
       {
-        path: "/page",
-        name: "Page",
-        component: Page,
+        path: "/feed",
+        name: "Feed",
+        component: Feed,
         meta: {
           title: "Fil d'actualité",
+        },
+      },
+      {
+        path: "/post",
+        name: "Post",
+        component: Post,
+        meta: {
+          title: "Post",
         },
       },
 ];

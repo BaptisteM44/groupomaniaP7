@@ -60,6 +60,7 @@ export default {
       inputPassword: "",
       invalid: "",
     };
+    
   },
   methods: {
     sendDataForm() {
@@ -73,12 +74,13 @@ export default {
       if (this.inputEmail == '' || this.inputUsername == '' || this.inputPassword == '') {
         return this.invalid='Un des champs est invalide';
       }
-      
+    
       axios.post("http://localhost:3000/api/auth/signup", {
-          username: this.inputUsername,
-          email: this.inputEmail,
-          password: this.inputPassword,
+                userName: this.inputUsername,
+                email: this.inputEmail,
+                password: this.inputPassword,
         })
+        
         .then(() => {
           alert("Inscription réussie, redirection vers le module de connexion");
           router.push({ path: "/login" });
@@ -86,8 +88,40 @@ export default {
         .catch((error) => {
           alert(error.status);
           console.log(error);
+          
         });
     },
   },
 };
 </script>
+
+<style scoped>
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+}
+.container{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+section{
+  margin-top:3em;
+  width:20em;
+}
+form{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+}
+form div{
+  display:flex;
+  flex-direction: column;
+  width:100%;
+}
+</style>

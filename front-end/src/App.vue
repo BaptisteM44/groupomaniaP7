@@ -1,15 +1,16 @@
 <!-- Fichier central de l'qpplication Vue.-->
 <template>
-<header>
-<div v-if="checkLogIn(token)">
-  <NavBar @logout="refreshToken()" ></NavBar>
-</div>
-</header>
-<router-view @login="refreshToken()" />
+  <header>
+    <div v-if="checkLogIn(token)">
+      <NavBar @logout="getTokenFromLocalStorage()" ></NavBar>
+    </div>
+  </header>
+  <router-view @login="getTokenFromLocalStorage()" />
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
+ 
 export default {
   name: "App",
   data(){
@@ -18,7 +19,7 @@ export default {
     }
   },
   created(){
-    this.refreshToken()
+    this.getTokenFromLocalStorage()
   },
   components: {
     NavBar
@@ -31,7 +32,7 @@ export default {
             false
           }
         },
-    refreshToken(){
+    getTokenFromLocalStorage(){
       this.token= localStorage.getItem("token");
     },
   }
@@ -53,18 +54,7 @@ header{
   display: flex;
   flex-direction: column;
 }
-.logo{
-  display:flex;
-  justify-content: center;
-}
-#logo {
-  height:12em;
-  margin-bottom: 2em;
-}
 #app {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
 a {

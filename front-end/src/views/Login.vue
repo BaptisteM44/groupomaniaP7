@@ -46,7 +46,7 @@ export default {
           window.alert(
             "connexion réussie, redirection vers la page principale"
           );
-          router.push({ path: "/feed" });
+          router.push({ path: "/Feed" });
         })
         .catch((error) => {
           this.isInvalid = true;
@@ -56,3 +56,39 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+}
+.container{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+section{
+   display:flex;
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+  padding:1em;
+  width:90%;
+}
+.formcard{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+  padding:1em;
+}
+form div{
+  display:flex;
+  flex-direction: column;
+  width:100%;
+}
+</style>

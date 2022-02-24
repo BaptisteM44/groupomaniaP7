@@ -33,7 +33,7 @@ exports.findAllPosts = (req, res, next) => {
 }
 
 // Tous les Posts d'un utilisateur
-exports.findAllPostsForOne = (req, res, next) => {
+exports.findAllPostsForOneUser = (req, res, next) => {
     Post.findAll({
         where: { UserId: req.params.id },
         include: {

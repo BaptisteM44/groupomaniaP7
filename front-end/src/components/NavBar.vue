@@ -3,7 +3,7 @@
 <template>
     <nav class="navbar">
         <img src="../assets/images/icon-left-black.png" alt="" >
-        <router-link class="link" to="/Page">
+        <router-link class="link" to="/Feed">
             <p>Accueil</p>
         </router-link>
         <a @click="localClear">
