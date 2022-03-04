@@ -6,21 +6,24 @@
         <router-link class="link" to="/Feed">
             <p>Accueil</p>
         </router-link>
-        <a @click="localClear">
+        <router-link class="link" to="/Profil">
+            <p>Profil</p>
+        </router-link>
+        <a @click="disconnect">
             <p>Se déconnecter</p>
         </a>
     </nav>
 </template>
 
 <script>
-import router from "../router";
+
 export default {
     name: "Navigation",
     methods:{
-        localClear() {
-        localStorage.clear();
-        this.$emit('logout');
-        router.push({ path : "/login" });
+        disconnect() {
+            localStorage.removeItem('token');
+            this.$emit('logout');
+            
         }
     }
 }

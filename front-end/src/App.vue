@@ -1,39 +1,27 @@
 <!-- Fichier central de l'qpplication Vue.-->
 <template>
-  <header>
-    <div v-if="checkLogIn(token)">
-      <NavBar @logout="getTokenFromLocalStorage()" ></NavBar>
-    </div>
-  </header>
-  <router-view @login="getTokenFromLocalStorage()" />
+  <div>
+    <header>
+      <div>
+        <NavBar @logout="handleLogout()" ></NavBar>
+      </div>
+    </header>
+    <router-view />
+  </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
- 
+import router from "./router";
+
 export default {
   name: "App",
-  data(){
-    return{
-      token:null,
-    }
-  },
-  created(){
-    this.getTokenFromLocalStorage()
-  },
   components: {
     NavBar
   },
   methods:{
-    checkLogIn(key){
-          if(key){
-            return true
-          } else {
-            false
-          }
-        },
-    getTokenFromLocalStorage(){
-      this.token= localStorage.getItem("token");
+    handleLogout() {
+      router.push({ path : "/login" });
     },
   }
 };

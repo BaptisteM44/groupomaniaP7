@@ -1,6 +1,6 @@
 const db = require("../models")
 const User = db.users
-const Message = db.messages
+const Post = db.posts
 const Comment = db.comments
 
 // Trouver un utilisateur
@@ -22,9 +22,9 @@ exports.findOneUser = (req, res, next) => {
         .then(cmtcount => { userInfo.commentsCount = cmtcount })
     })
     .then(() => {
-        Message.count({ where: { userId: req.params.id }})
+        Post.count({ where: { userId: req.params.id }})
         .then(msgcount => { 
-            userInfo.messagesCount = msgcount 
+            userInfo.postsCount = msgcount 
             res.status(200).json(userInfo)
         })
     })  
@@ -40,4 +40,12 @@ exports.modifyUser = (req, res, next) => {
     User.update({ ...userObject, id:  req.params.id}, { where: { id: req.params.id }})
       .then(() => res.status(200).json({ ...userObject }))
       .catch(error => res.status(400).json({ error }))
+}
+
+// Supprimer utilisateur
+exports.deleteUser = (req, res, next) => {
+    Post.destroy({ where: { userId: req.params.id }})
+    User.destroy({ where: { id: req.params.id }})
+        .then(() => res.status(200).json({ user: "Utilisateur supprimé !" }))
+        .catch(error => res.status(400).json({ error }))
 }

@@ -6,9 +6,9 @@
             <input v-on:keydown="isInvalid = false" v-model="inputEmail" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="votre email">
         </div>
         <div class="form-container">
-            <input v-on:keydown="isInvalid = false" v-model="inputPassword" type="password" class="form-control" id="inputPassword" aria-describedby="passwordHelp" placeholder="votre mot de passe">
-            <button type="submit">SE CONNECTER</button>                       
+            <input v-on:keydown="isInvalid = false" v-model="inputPassword" type="password" class="form-control" id="inputPassword" aria-describedby="passwordHelp" placeholder="votre mot de passe">                       
         </div>
+        <button type="submit">SE CONNECTER</button>
         
         <router-link to="/register">Pas de compte ? S'incrire</router-link>
       </form> 
@@ -40,8 +40,9 @@ export default {
         .then((res) => {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userId", res.data.userId);
-          localStorage.setItem("username", res.data.username);
+          localStorage.setItem("userName", res.data.userName);
           localStorage.setItem("isAdmin", res.data.isAdmin);
+          localStorage.setItem("role", res.data.role);
           this.$emit('login');
           window.alert(
             "connexion réussie, redirection vers la page principale"
@@ -70,8 +71,12 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.form-container{
+  margin:10px;
+  width: 10rem;
+}
 section{
-   display:flex;
+  display:flex;
   justify-content: center;
   align-items: center;
   margin:auto;
@@ -79,12 +84,14 @@ section{
   width:90%;
 }
 .formcard{
+  width: 400px;
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin:auto;
   padding:1em;
+  box-shadow: 0 2.2em 3.2em 0.1em rgb(128 128 128 / 30%);
 }
 form div{
   display:flex;
