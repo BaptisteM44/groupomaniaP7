@@ -1,17 +1,20 @@
 <template>
   <main>
-    <section>  
-      <form class="formcard" @submit.prevent="login">
-        <div class="form-container">
-            <input v-on:keydown="isInvalid = false" v-model="inputEmail" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="votre email">
-        </div>
-        <div class="form-container">
-            <input v-on:keydown="isInvalid = false" v-model="inputPassword" type="password" class="form-control" id="inputPassword" aria-describedby="passwordHelp" placeholder="votre mot de passe">                       
-        </div>
-        <button type="submit">SE CONNECTER</button>
-        
-        <router-link to="/register">Pas de compte ? S'incrire</router-link>
-      </form> 
+    <section>
+      <div class="formcard">
+        <h2>Login</h2>
+        <form  @submit.prevent="login">
+          <div class="form-container">
+              <input v-on:keydown="isInvalid = false" v-model="inputEmail" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="votre email">
+          </div>
+          <div class="form-container">
+              <input v-on:keydown="isInvalid = false" v-model="inputPassword" type="password" class="form-control" id="inputPassword" aria-describedby="passwordHelp" placeholder="votre mot de passe">                       
+          </div>
+          <button type="submit">SE CONNECTER</button>
+          
+          <router-link to="/register">Pas de compte ? S'incrire</router-link>
+        </form>   
+      </div>
     </section>
     <div class="invalid" v-show="isInvalid">
           Veuillez vérifier vos informations de connexion
@@ -64,6 +67,7 @@ export default {
 *::before {
     margin: 0;
     padding: 0;
+    font-family: 'Lato', sans-serif;
 }
 .container{
   display:flex;
@@ -71,9 +75,22 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.form-container{
-  margin:10px;
-  width: 10rem;
+h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fd2b01ab;
+  text-align: center;
+}
+.form-control{
+  width: 100%;
+  padding: 10px 0;
+  font-size: 13px;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fd2b01ab;
+  outline: none;
+  background: transparent;
+  align-items: center;
 }
 section{
   display:flex;
@@ -90,12 +107,71 @@ section{
   justify-content: center;
   align-items: center;
   margin:auto;
-  padding:1em;
+  padding: 4em;
   box-shadow: 0 2.2em 3.2em 0.1em rgb(128 128 128 / 30%);
+  border-radius: 10px;
 }
 form div{
   display:flex;
   flex-direction: column;
   width:100%;
+}
+button {
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #fd2b01ab;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-bottom: 2rem;
+}
+
+button:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+button:hover:after {
+  transform: translate(0, 0);
+}
+
+button:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+button:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  button {
+    padding: 0 40px;
+  }
 }
 </style>

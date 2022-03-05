@@ -29,6 +29,9 @@ export default {
 }
 </script>
 <style scoped>
+body{
+    font-family: 'Lato', sans-serif;
+}
 img{
     height: 150px;
     position: absolute;
@@ -45,6 +48,7 @@ a{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .navbar {
     position: relative;
@@ -52,7 +56,6 @@ a{
     justify-content: center;
     width: 100%;
     padding: 20px;
-    margin-bottom: 3em;
     box-shadow: 0 1.2em 1.2em -0.9em rgba(128, 128, 128, 0.185);
 }
 .navbar a {

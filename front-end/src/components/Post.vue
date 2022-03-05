@@ -135,5 +135,8 @@ export default {
 </script>
 
 <style>
+body{
+    font-family: 'Lato', sans-serif;
+}
     
 </style>

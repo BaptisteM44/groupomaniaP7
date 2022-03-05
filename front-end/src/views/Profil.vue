@@ -2,21 +2,20 @@
     <div>
         <main>
         <!-- Profil -->
-        <section >
-        <h1>Bonjour {{ userName }} !</h1>
-        <div class="profile__date">
-            <h2>Ancienneté</h2>
-            <p>Membre depuis le {{ createdAt.slice(0,10) }}</p>
-        </div>
-        <div class="profile__date">
-            <h2>Adresse Email</h2>
-            <p>{{ email }}</p>
-        </div>
-        <!-- Supprimer son compte -->
-        <div class="delete__section">
-            <p class="">Depuis cette page vous pouvez supprimer votre compte.</p>
-            <button class="delete__account" @click="deleteMyAccount(userId)">SUPPRIMER VOTRE COMPTE</button>
-        </div>
+        <section class="section__profil">
+            <h1>Bonjour {{ userName }} !</h1>
+            <div class="profil__date">
+                <h2>Ancienneté : </h2>
+                <p>Membre depuis le {{ createdAt.slice(0,10) }}</p>
+            </div>
+            <div class="profil__date">
+                <h2>Adresse Email :</h2>
+                <p>{{ email }}</p>
+            </div>
+            <!-- Supprimer son compte -->
+            <div class="delete__section">
+                <button class="delete__account" @click="deleteMyAccount(userId)">SUPPRIMER VOTRE COMPTE</button>
+            </div>
         </section>
         
     </main>
@@ -40,7 +39,7 @@ export default {
     };
   },
   methods: {
-      deleteMyAccount(userId) {
+      deleteMyAccount() {
             let confirmUserDeletion = confirm("voulez-vous vraiment supprimer votre compte ?");
             if (confirmUserDeletion == true) {
                 axios.delete("http://localhost:3000/api/users/" + localStorage.getItem("userId"), {headers: { "Authorization": "Bearer " + localStorage.getItem("token") },})
@@ -75,3 +74,90 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.section__profil{
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fd2b01ab;
+    outline: none;
+    align-items: center;
+}
+.profil__date{
+    margin: 2rem;
+    display: flex;
+    align-items: baseline;
+}
+.profil__date h2{
+    margin-right: 1rem;
+}
+button {
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #fd2b01ab;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-bottom: 2rem;
+}
+
+button:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+button:hover:after {
+  transform: translate(0, 0);
+}
+
+button:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+button:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  button {
+    padding: 0 40px;
+  }
+}
+
+
+</style>

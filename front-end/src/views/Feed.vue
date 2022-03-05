@@ -2,59 +2,52 @@
     <!--Création post-->
     <div>
         <div class="container">
-            <div class="">
-                <div class="" id="allposts">
-                    <form class="new-post" enctype="multipart/form-data">
-                        <div class="main-title">
-                            <p>Poster un message</p>
-                        </div>
-                        <div class="form-post">
-                            <div class="">
-                                <label for="newPost" class="">Post :</label>
-                                <textarea class="right-post" v-model="newPost" id="newPost" name="Post" rows="10" placeholder="Votre post ici..."></textarea>
-                            </div>
-                            
-                        </div>
-                        <div class="file-post">
-                            <img :src="newImage" class="show-img">
-                            <label for="File" class=""></label>
-                            <input @change="onFileChange()" type="file" ref="file" name="image" class="" id="File" accept=".jpg, .jpeg, .gif, .png">
-                        </div>
-                        <div class="">
-                            <div class=""><button type="submit" @click.prevent="addNewPost()" class="">Valider</button></div>
-                        </div>
-                    </form>
-                    <!--affichage posts-->
-                    <div>
-                        <h1 v-if ="posts.length !=0">Dernières Publications</h1>   
-                        <h1 v-else> Aucune publication pour le moment, soyez le premier à en créer une ! </h1>
+            <div class="" id="allposts">
+                <form class="new-post" enctype="multipart/form-data">
+                    <div class="main-title">
+                        <p>Poster un message</p>
                     </div>
-                    <div v-for="post in posts" :key="post.id" class="post">
-                        <div class="post-header">
-                            <div>
-                                <span class="" >
-                                    Posté par {{post.userName}} 
-                                    le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
-                                </span>
-                            </div>
-                            <div class="icon-post">
-                                <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
-                                    <i class="fa fa-trash"></i>
-                                </label>
-                            </div>           
-                        </div>
-                        <div class="container-post">
-                            <p class="" v-if="post.post !== ''"> {{post.post}} </p>
-                            <div class="img-post">
-                                <img :src="post.postUrl" v-if="post.postUrl !== ''">
-                            </div>
-                            <div class="com-post">
-                                <router-link :to="{ path: '/post/' + post.id}">commenter</router-link>
-                            </div>
-                        </div>
-                        <!-- Section commentaire -->
-                        
+                    <div class="form-post">
+                        <textarea class="right-post" v-model="newPost" id="newPost" name="Post" rows="10" placeholder="Votre post ici..."></textarea>
                     </div>
+                    <div class="file-post">
+                        <img :src="newImage" class="show-img">
+                        <input @change="onFileChange()" type="file" ref="file" name="image" class="" id="File" accept=".jpg, .jpeg, .gif, .png">
+                    </div>
+                    <div class="">
+                        <button type="submit" @click.prevent="addNewPost()" class="">Valider</button>
+                    </div>
+                </form>
+                <!--affichage posts-->
+                <div>
+                    <h1 v-if ="posts.length !=0">Dernières Publications</h1>   
+                    <h1 v-else> Aucune publication pour le moment, soyez le premier à en créer une ! </h1>
+                </div>
+                <div v-for="post in posts" :key="post.id" class="post">
+                    <div class="post-header">
+                        <div>
+                            <span class="" >
+                                Posté par {{post.userName}} 
+                                le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
+                            </span>
+                        </div>
+                        <div class="icon-post">
+                            <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
+                                <i class="fa fa-trash"></i>
+                            </label>
+                        </div>           
+                    </div>
+                    <div class="container-post">
+                        <p class="" v-if="post.post !== ''"> {{post.post}} </p>
+                        <div class="img-post">
+                            <img :src="post.postUrl" v-if="post.postUrl !== ''">
+                        </div>
+                        <div class="com-post">
+                            <router-link :to="{ path: '/post/' + post.id}">commenter</router-link>
+                        </div>
+                    </div>
+                    <!-- Section commentaire -->
+                    
                 </div>
             </div>
         </div>
@@ -87,6 +80,9 @@ export default {
             this.newImage = URL.createObjectURL(this.file)
         },
         addNewPost() {
+            if (this.newPost == '') {
+                return alert('Publication vide');
+            }
             const formData = new FormData()
             formData.set("image", this.file)
             formData.set("UserId", this.currentUserId.toString())
@@ -146,25 +142,34 @@ export default {
         background-color: #ffffff;
         text-align: center;
         align-items: center;
+        font-family: 'Lato', sans-serif;
     }
     
     .container{
         text-align: center;
+        margin: 0 auto;
+        border-left: 1px solid #fd2b01ab;
+        border-right: 1px solid #fd2b01ab;
+        max-width: 650px;
+        box-shadow: 0 1.2em 5.2em -0.5em rgb(128 128 128 / 19%);
     }
     .main-title{
-        margin: 1.5rem;
+        padding: 2rem;
         font-size: 1.5rem;
+        font-weight: 700;
     }
     .new-post{
         width: auto;
-        margin: 2rem auto;
+        margin: 0 auto;
+        border-bottom: 1px solid #fd2b01ab;
     }
-    /* .file-post{
-        
-    } */
+    .file-post input{
+        margin: 1rem auto;
+    }
     .show-img{
         max-width: 30rem;
         object-fit: cover;
+        border-radius: 15px;
     }
     .form-post{
         margin: 1rem 5rem;
@@ -173,7 +178,7 @@ export default {
     }
     .right-post{
         border-radius: 1em;
-        width:40%;
+        width:60%;
         height:5em;
         padding: 1em 0.5em 1em 0.5em;
         font-size: 1em;
@@ -190,10 +195,10 @@ export default {
 
     }
     .container-post {
-        width: 50%;
+        width: 100%;
         text-align: center;
         padding: 40px;
-        border: 1px solid #fd2b01ab;
+        border-bottom: 1px solid #fd2b01ab;
         display: block;
         margin: 0 auto;
         box-shadow: 0 1.2em 1.2em -0.5em rgb(128 128 128 / 19%) ;
@@ -209,4 +214,60 @@ export default {
         background-color: ivory;
         border-radius: 10px;
     }
+button {
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #fd2b01ab;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-bottom: 2rem;
+}
+
+button:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+button:hover:after {
+  transform: translate(0, 0);
+}
+
+button:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+button:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  button {
+    padding: 0 40px;
+  }
+}
 </style>
