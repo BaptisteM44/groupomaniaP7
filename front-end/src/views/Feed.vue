@@ -24,20 +24,15 @@
                     <h1 v-else> Aucune publication pour le moment, soyez le premier à en créer une ! </h1>
                 </div>
                 <div v-for="post in posts" :key="post.id" class="post">
-                    <div class="post-header">
-                        <div>
-                            <span class="" >
-                                Posté par {{post.userName}} 
-                                le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
-                            </span>
-                        </div>
-                        <div class="icon-post">
-                            <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
-                                <i class="fa fa-trash"></i>
-                            </label>
-                        </div>           
-                    </div>
                     <div class="container-post">
+                        <div class="post-header">
+                            <div>
+                                <span>
+                                    Posté par {{post.userName}} 
+                                    le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
+                                </span>
+                            </div>
+                        </div>
                         <p class="" v-if="post.post !== ''"> {{post.post}} </p>
                         <div class="img-post">
                             <img :src="post.postUrl" v-if="post.postUrl !== ''">
@@ -45,7 +40,14 @@
                         <div class="com-post">
                             <router-link :to="{ path: '/post/' + post.id}">commenter</router-link>
                         </div>
+                        <div class="icon-post">
+                            <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
+                                <i class="fa fa-trash"></i>
+                            </label>
+                        </div>
+                        
                     </div>
+                    
                     <!-- Section commentaire -->
                     
                 </div>
@@ -192,16 +194,19 @@ export default {
     }
     .post-header{
         display: inline-flex;
-
+        position: absolute;
+        left: 9px;
+        top: -9px;
     }
     .container-post {
         width: 100%;
         text-align: center;
-        padding: 40px;
+        padding: 1rem;
         border-bottom: 1px solid #fd2b01ab;
         display: block;
         margin: 0 auto;
         box-shadow: 0 1.2em 1.2em -0.5em rgb(128 128 128 / 19%) ;
+        position: relative;
     }
     .img-post img{
         max-width: 200px;
