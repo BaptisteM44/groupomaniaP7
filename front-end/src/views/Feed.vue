@@ -19,33 +19,34 @@
                     </div>
                 </form>
                 <!--affichage posts-->
-                <div>
+                <div class="container-post">
                     <h1 v-if ="posts.length !=0">Dernières Publications</h1>   
                     <h1 v-else> Aucune publication pour le moment, soyez le premier à en créer une ! </h1>
                 </div>
                 <div v-for="post in posts" :key="post.id" class="post">
                     <div class="container-post">
                         <div class="post-header">
-                            <div>
-                                <span>
-                                    Posté par {{post.userName}} 
-                                    le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
-                                </span>
-                            </div>
+                            <span>
+                                Posté par {{post.userName}} 
+                                le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
+                            </span>
                         </div>
-                        <p class="" v-if="post.post !== ''"> {{post.post}} </p>
+                        <div class="msg-post">
+                            <p v-if="post.post !== ''"> {{post.post}} </p>
+                        </div>
                         <div class="img-post">
                             <img :src="post.postUrl" v-if="post.postUrl !== ''">
                         </div>
-                        <div class="com-post">
-                            <router-link :to="{ path: '/post/' + post.id}">commenter</router-link>
+                        <div class="footer-post">
+                            <div class="com-post">
+                                <router-link :to="{ path: '/post/' + post.id}"><i class="fa-solid fa-comments"></i></router-link>
+                            </div>
+                            <div class="icon-post">
+                                <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
+                                    <i class="fa fa-trash"></i>
+                                </label>
+                            </div>
                         </div>
-                        <div class="icon-post">
-                            <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
-                                <i class="fa fa-trash"></i>
-                            </label>
-                        </div>
-                        
                     </div>
                     
                     <!-- Section commentaire -->
@@ -197,6 +198,7 @@ export default {
         position: absolute;
         left: 9px;
         top: -9px;
+        border-bottom: 1px solid #8d8d8dad;
     }
     .container-post {
         width: 100%;
@@ -208,16 +210,27 @@ export default {
         box-shadow: 0 1.2em 1.2em -0.5em rgb(128 128 128 / 19%) ;
         position: relative;
     }
-    .img-post img{
-        max-width: 200px;
+    .msg-post{
+        margin: 1rem auto;
+        font-size: 19px;
+        width: 74%;
+        text-align: left;
     }
-    .item{
-        align-items: center;
-        margin: 10px auto;
-        width: 60%;
-        height: 100%;
-        background-color: ivory;
-        border-radius: 10px;
+    .img-post img{
+        width: 80%;
+        border-radius: 15px;
+    }
+    .footer-post{
+        display: flex;
+        justify-content: space-around;
+        width: 95%;
+        margin: 1rem auto;
+    }
+    .com-post{
+        color: black;
+    }
+    .label-post{
+        cursor: pointer;
     }
 button {
   align-items: center;
