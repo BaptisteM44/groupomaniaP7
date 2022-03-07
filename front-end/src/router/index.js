@@ -27,6 +27,7 @@ const routes = [
         path: "/feed",
         name: "Feed",
         component: Feed,
+        beforeEnter: [verfitoken],
         meta: {
           title: "Fil d'actualité",
         },
@@ -35,6 +36,7 @@ const routes = [
         path: "/profil",
         name: "Profil",
         component: Profil,
+        beforeEnter: [verfitoken],
         meta: {
           title: "Profil",
         },
@@ -43,11 +45,18 @@ const routes = [
         path: "/post/:id",
         name: "Post",
         component: Post,
+        beforeEnter: [verfitoken],
         meta: {
           title: "Post",
         },
       },
 ];
+
+function verfitoken() {
+  const loggedToken = localStorage.getItem("token")
+  if (loggedToken == null)
+    return { path: "/login"}
+}
 
 const router = createRouter({
     history: createWebHistory(),
