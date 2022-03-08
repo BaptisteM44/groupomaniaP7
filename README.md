@@ -26,5 +26,14 @@ npm start
 npm start
 ```
 ```
-nodemon server
+npm run serve
 ```
+Le serveur doit fonctionner sur http://localhost:3000/.
+
+# Notes:
+
+- Au lancement du serveur backend, la base de données sera créée automatiquement.
+
+- Le compte administrateur sera crée en même temps que le premier utilisateur.
+
+- Ces informations de compte sont définies dans le fichier .env
