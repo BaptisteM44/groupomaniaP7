@@ -1,4 +1,4 @@
-# groupomaniaP7
+# GroupomaniaP7
 
 # front-end
 
