@@ -1,23 +1,17 @@
 # GroupomaniaP7
 
+## Premières instructions:
+  - Node.js
+  - Installer MySQL
+ 
 # front-end
-
-## Project setup
+  Ouvrir le terminal du front-end et faites:
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+Et ensuite 
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+npm start
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+#back-end
