@@ -18,7 +18,7 @@ npm start
   
   Une fois sur l'application, rendez-vous sur "s'enregistrer"
   
-  Vous pouvez également avoir le privilège Administrateur en utilisant les informations du fichier .env.example
+  Vous pouvez avoir le privilège Administrateur en utilisant les informations du fichier .env.example
 
 # back-end
   Ouvrir le terminal du back-end et faites:
