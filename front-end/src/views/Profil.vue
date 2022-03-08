@@ -14,10 +14,9 @@
             </div>
             <!-- Supprimer son compte -->
             <div class="delete__section">
-                <button class="delete__account" @click="deleteMyAccount(userId)">SUPPRIMER VOTRE COMPTE</button>
+                <button v-if="this.role === 'Utilisateur'" @click="deleteMyAccount(userId)">SUPPRIMER VOTRE COMPTE</button>
             </div>
         </section>
-        
     </main>
   </div>
 </template>
@@ -30,9 +29,11 @@ import router from "../router";
 export default {
   data() {
     return {
-        userName: "", 
+        userName: "",
+        userId: "",
         email: "", 
-        role: "", 
+        role: "",
+        isAdmin: "",
         createdAt: "",
         file: null, 
         submitted: false

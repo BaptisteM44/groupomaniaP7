@@ -20,36 +20,36 @@
                         <div class="img-post">
                             <img  :src="onePost.postUrl" v-if="onePost.postUrl !== ''">
                         </div>
-                        <div class="">
-                            <p class="" v-if="onePost.comments === 0">Il n'y a aucun commentaire.</p>
-                            <p class="h6 small" v-if="onePost.comments > 1">Il y a {{onePost.comments}} commentaires.</p>
-                        </div>
+                        <!-- <div >
+                            <p v-if="onePost.comments === 0">Il n'y a aucun commentaire.</p>
+                            <p v-if="onePost.comments > 1">Il y a {{onePost.comments}} commentaires.</p>
+                        </div> -->
                     <!-- FIN DU Post -->
                 </div>
-                <div class="">
+                <div >
                     <form enctype="multipart/form-data">
                         <div class="title-com">
                             <p>Poster un nouveau commentaire</p>
                         </div>
                         <div class="form-post">
                             <textarea class="right-post" v-model="newComment" id="newComment" name="comment" rows="10" placeholder="Votre commentaire ici..." required :class="{ 'is-invalid': submitted && !newComment }"></textarea>
-                            <div v-show="submitted && !newComment" class="">Un commentaire est requis !</div>
+                            <div v-show="submitted && !newComment">Un commentaire est requis !</div>
                         </div>
                         <div class="valid-post">
-                            <button type="submit" @click.prevent="addNewComment()" class="">Valider</button>
-                            <router-link to="/feed" class="">annuler</router-link>
+                            <button type="submit" @click.prevent="addNewComment()">Valider</button>
+                            <router-link to="/feed" >annuler</router-link>
                         </div>
                     </form>
                 </div>
                 <div v-for="comment in comments" :key="comment.id" class="block-comments">
-                    <div class="">
+                    <div>
                         <span class="info-comment">
                             Commentaire de {{comment.User.userName}} 
-                            <span v-if="!comment.User.isActive" class="">(supprimé)</span>, 
+                            <span v-if="!comment.User.isActive">(supprimé)</span>, 
                             le {{comment.createdAt.slice(0,10).split('-').reverse().join('/')}}
                             <label @click.prevent="deleteComment(comment.id)" v-if="comment.UserId == this.currentUserId || this.isAdmin == 'true'" class="delete__comment" ><i class="fa fa-fw fa-trash"></i></label>
                         </span>
-                        <div :id="'adcom' + comment.id"  v-if="comment.UserId == this.currentUserId || this.isAdmin == 'true'"></div>
+                        <div :id="'adcom' + comment.id" v-if="comment.UserId == this.currentUserId || this.isAdmin == 'true'"></div>
                     </div>
                     <div class="comment">
                         <p> {{comment.comment}}</p>

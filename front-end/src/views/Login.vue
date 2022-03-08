@@ -2,6 +2,9 @@
   <main>
     <section>
       <div class="formcard">
+        <div class="logo-card">
+          <img src="../assets/images/icon.svg" alt="logo groupomania">
+        </div>
         <h2>Login</h2>
         <form  @submit.prevent="login">
           <div class="form-container">
@@ -12,7 +15,7 @@
           </div>
           <button type="submit">SE CONNECTER</button>
           
-          <router-link to="/register">Pas de compte ? S'incrire</router-link>
+          <router-link to="/register">Pas de compte ? S'inscrire</router-link>
         </form>   
       </div>
     </section>
@@ -47,9 +50,6 @@ export default {
           localStorage.setItem("isAdmin", res.data.isAdmin);
           localStorage.setItem("role", res.data.role);
           this.$emit('login');
-          window.alert(
-            "connexion réussie, redirection vers la page principale"
-          );
           router.push({ path: "/Feed" });
         })
         .catch((error) => {
@@ -81,6 +81,9 @@ h2 {
   color: #fd2b01ab;
   text-align: center;
 }
+.logo-card img{
+  width: 80%;
+}
 .form-control{
   width: 100%;
   padding: 10px 0;
@@ -107,7 +110,7 @@ section{
   justify-content: center;
   align-items: center;
   margin:auto;
-  padding: 4em;
+  padding: 2.5em;
   box-shadow: 0 2.2em 3.2em 0.1em rgb(128 128 128 / 30%);
   border-radius: 10px;
 }

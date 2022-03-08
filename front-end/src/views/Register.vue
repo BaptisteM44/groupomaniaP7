@@ -1,7 +1,10 @@
 <template>
-  <main class="container">
+  <main>
     <section>
       <div class="formcard">
+        <div class="logo-card">
+          <img src="../assets/images/icon.svg" alt="logo groupomania">
+        </div>
         <h2>INSCRIPTION</h2>
         <div v-show="invalid!=null" class="invalid_txt" key="invalid">
             <p>{{invalid}}</p>
@@ -85,7 +88,6 @@ export default {
           router.push({ path: "/login" });
         })
         .catch((error) => {
-          alert(error.status);
           console.log(error);
           
         });
@@ -107,6 +109,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.logo-card img{
+  width: 80%;
 }
 h2 {
   margin: 0 0 30px;
@@ -140,7 +145,7 @@ section{
   justify-content: center;
   align-items: center;
   margin:auto;
-  padding: 4em;
+  padding: 2.5em;
   box-shadow: 0 2.2em 3.2em 0.1em rgb(128 128 128 / 30%);
   border-radius: 10px;
 }

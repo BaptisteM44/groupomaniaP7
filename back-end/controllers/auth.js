@@ -6,12 +6,12 @@ const jwt = require("jsonwebtoken")
 // Creation d'un nouvel utilisateur
 exports.signup = (req, res, next) => {
     if (User.length === 0) {
-        bcrypt.hash(process.env.Admin_password, 10)
+        bcrypt.hash(process.env.ADMIN_PASSWORD, 10)
         .then(hash => {
             const user = new User({
                 id: 1,
-                userName: process.env.Admin_userName,
-                email: process.env.Admin_email,
+                userName: process.env.ADMIN_USERNAME,
+                email: process.env.ADMIN_EMAIL,
                 password: hash,
                 isAdmin: true,
                 isActive: true

@@ -1,4 +1,4 @@
-<!-- Fichier central de l'qpplication Vue.-->
+<!-- Fichier central de l'application Vue.-->
 <template>
   <div>
     <header>

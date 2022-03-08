@@ -45,6 +45,7 @@ exports.modifyUser = (req, res, next) => {
 // Supprimer utilisateur
 exports.deleteUser = (req, res, next) => {
     Post.destroy({ where: { userId: req.params.id }})
+    Comment.destroy({ where: { userId: req.params.id }})
     User.destroy({ where: { id: req.params.id }})
         .then(() => res.status(200).json({ user: "Utilisateur supprimé !" }))
         .catch(error => res.status(400).json({ error }))

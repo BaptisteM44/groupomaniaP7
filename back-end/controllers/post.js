@@ -122,8 +122,9 @@ exports.modifyPost = (req, res, next) => {
 }
 
 // Supprimer un Post
-exports.deletePost = (req, res, next) => {
-  Post.destroy({ where: { id: req.params.id }})
+exports.deletePost = (req, res) => {
+    Comment.destroy({ where: { postId: req.params.id }})
+    Post.destroy({ where: { id: req.params.id }})
         .then(() => res.status(200).json({ post: "Post supprimé !" }))
         .catch(error => res.status(400).json({ error }))
 }

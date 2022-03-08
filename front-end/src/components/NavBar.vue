@@ -1,8 +1,7 @@
 <!-- Composant Bar de Navigation -->
-
 <template>
     <nav class="navbar">
-        <img src="../assets/images/icon-left-black.png" alt="" >
+        <img src="../assets/images/icon-left-black.png" alt="logo header groupomania" >
         <router-link class="link" to="/Feed">
             <p>Accueil</p>
         </router-link>
@@ -19,11 +18,11 @@
 
 export default {
     name: "Navigation",
+
     methods:{
         disconnect() {
-            localStorage.removeItem('token');
+            localStorage.clear();
             this.$emit('logout');
-            
         }
     }
 }

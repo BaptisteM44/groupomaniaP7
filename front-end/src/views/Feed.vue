@@ -95,7 +95,6 @@ export default {
                 this.UserId = ""
                 this.newPost = ""
                 this.file = null
-                alert('publication réussie')
                 location.reload();
             })
             .catch((error)=>{
