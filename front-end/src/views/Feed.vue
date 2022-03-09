@@ -83,8 +83,8 @@ export default {
             this.newImage = URL.createObjectURL(this.file)
         },
         addNewPost() {
-            if (this.newPost == '') {
-                return alert('Publication vide');
+            if (this.newPost === '' && this.newImage === '') {
+                return alert('Attention ! Publication vide');
             }
             const formData = new FormData()
             formData.set("image", this.file)

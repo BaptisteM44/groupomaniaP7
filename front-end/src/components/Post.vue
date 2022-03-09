@@ -67,7 +67,7 @@ export default {
     name: "Commentaires",
     data() {
         return {
-            newComment: null,
+            newComment: "",
             currentUserId: "",
             postId: "",
             submitted: false,
@@ -79,6 +79,9 @@ export default {
     },
     methods: {
         addNewComment() {
+            if (this.newComment === '') {
+                return alert('Attention ! Commentaire vide');
+            }
             this.submitted = true
             axios.post("http://localhost:3000/api/comments/", { "PostId": this.$route.params.id, "UserId": this.currentUserId, "comment": this.newComment }, { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}})
             .then(()=> {
