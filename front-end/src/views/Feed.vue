@@ -1,56 +1,49 @@
 <template>
-    <!--Création post-->
-    <div>
-        <div class="container">
-            <div class="" id="allposts">
-                <form class="new-post" enctype="multipart/form-data">
-                    <div class="main-title">
-                        <p>Poster un message</p>
-                    </div>
-                    <div class="form-post">
-                        <textarea class="right-post" v-model="newPost" id="newPost" name="Post" rows="10" placeholder="Votre post ici..."></textarea>
-                    </div>
-                    <div class="file-post">
-                        <img :src="newImage" class="show-img">
-                        <input @change="onFileChange()" type="file" ref="file" name="image" class="" id="File" accept=".jpg, .jpeg, .gif, .png">
-                    </div>
-                    <div class="">
-                        <button type="submit" @click.prevent="addNewPost()" class="">Valider</button>
-                    </div>
-                </form>
-                <!--affichage posts-->
-                <div class="container-post">
-                    <h1 v-if ="posts.length !=0">Dernières Publications</h1>   
-                    <h1 v-else> Aucune publication pour le moment, soyez le premier à en créer une ! </h1>
+<!--Création post-->
+<div class="container">
+        <form class="new-post" enctype="multipart/form-data">
+            <div class="main-title">
+                <p>Poster un message</p>
+            </div>
+            <div class="form-post">
+                <textarea class="right-post" v-model="newPost" name="Post" rows="10" placeholder="Votre post ici..."></textarea>
+            </div>
+            <div class="file-post">
+                <img :src="newImage" class="show-img">
+                <input @change="onFileChange()" type="file" ref="file" name="image" class="" accept=".jpg, .jpeg, .gif, .png">
+            </div>
+            <div>
+                <button type="submit" @click.prevent="addNewPost()" class="">Valider</button>
+            </div>
+        </form>
+        <!--affichage posts-->
+        <div class="container-post">
+            <h1 v-if ="posts.length !=0">Dernières Publications</h1>   
+            <h1 v-else> Aucune publication pour le moment, soyez le premier à en créer une ! </h1>
+        </div>
+        <div v-for="post in posts" :key="post.id" class="post">
+            <div class="container-post">
+                <div class="post-header">
+                    <span>
+                        Posté par {{post.userName}} 
+                        le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
+                    </span>
                 </div>
-                <div v-for="post in posts" :key="post.id" class="post">
-                    <div class="container-post">
-                        <div class="post-header">
-                            <span>
-                                Posté par {{post.userName}} 
-                                le {{post.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + post.createdAt.slice(11,16)}}
-                            </span>
-                        </div>
-                        <div class="msg-post">
-                            <p v-if="post.post !== ''"> {{post.post}} </p>
-                        </div>
-                        <div class="img-post">
-                            <img :src="post.postUrl" v-if="post.postUrl !== ''">
-                        </div>
-                        <div class="footer-post">
-                            <div class="com-post">
-                                <router-link :to="{ path: '/post/' + post.id}"><i class="fa-solid fa-comments"></i></router-link>
-                            </div>
-                            <div class="icon-post">
-                                <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
-                                    <i class="fa fa-trash"></i>
-                                </label>
-                            </div>
-                        </div>
+                <div class="msg-post">
+                    <p v-if="post.post !== ''"> {{post.post}} </p>
+                </div>
+                <div class="img-post">
+                    <img :src="post.postUrl" v-if="post.postUrl !== ''">
+                </div>
+                <div class="footer-post">
+                    <div class="com-post">
+                        <router-link :to="{ path: '/post/' + post.id}"><i class="fa-solid fa-comments"></i></router-link>
                     </div>
-                    
-                    <!-- Section commentaire -->
-                    
+                    <div class="icon-post">
+                        <label class="label-post" @click="deletepost(post.id)" v-if="post.UserId == this.currentUserId || this.isAdmin == 'true'" >
+                            <i class="fa fa-trash"></i>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +54,7 @@
 import axios from "axios"
 
 export default {
-    name: "Posts",
+    name: "Feed",
     components: {
         
         
@@ -121,21 +114,15 @@ export default {
     created: function() {
         this.isAdmin = localStorage.getItem("role")
         this.currentUserId = localStorage.getItem("userId")
-        if (localStorage.getItem("refresh")===null) {
-            localStorage.setItem("refresh", 0)
-            location.reload()
-        }
-        axios.get("http://localhost:3000/api/posts",{ headers: {"Authorization": "Bearer " + localStorage.getItem("token")} })
-        .then(res => {
-            this.posts = res.data.ListePosts
-            console.log(this.post)
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
+            axios.get("http://localhost:3000/api/posts",{ headers: {"Authorization": "Bearer " + localStorage.getItem("token")} })
+            .then(res => {
+                this.posts = res.data.ListePosts
+                console.log(this.post)
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
     },
-    
-    
 }
 </script>
 

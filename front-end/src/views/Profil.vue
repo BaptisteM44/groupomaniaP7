@@ -1,24 +1,20 @@
 <template>
-    <div>
-        <main>
-        <!-- Profil -->
-        <section class="section__profil">
-            <h1>Bonjour {{ userName }} !</h1>
-            <div class="profil__date">
-                <h2>Ancienneté : </h2>
-                <p>Membre depuis le {{ createdAt.slice(0,10) }}</p>
-            </div>
-            <div class="profil__date">
-                <h2>Adresse Email :</h2>
-                <p>{{ email }}</p>
-            </div>
-            <!-- Supprimer son compte -->
-            <div class="delete__section">
-                <button v-if="this.role === 'Utilisateur'" @click="deleteMyAccount(userId)">SUPPRIMER VOTRE COMPTE</button>
-            </div>
-        </section>
-    </main>
-  </div>
+  <!-- Profil -->
+  <section class="section__profil">
+      <h1>Bonjour {{ userName }} !</h1>
+      <div class="profil__date">
+          <h2>Ancienneté : </h2>
+          <p>Membre depuis le {{ createdAt.slice(0,10) }}</p>
+      </div>
+      <div class="profil__date">
+          <h2>Adresse Email :</h2>
+          <p>{{ email }}</p>
+      </div>
+      <!-- Supprimer son compte -->
+      <div class="delete__section">
+          <button v-if="this.role === 'Utilisateur'" @click="deleteMyAccount(userId)">SUPPRIMER VOTRE COMPTE</button>
+      </div>
+  </section>
 </template>
 
 
@@ -66,8 +62,6 @@ export default {
             this.email = user.data.email
             this.role = user.data.role
             this.createdAt = user.data.createdAt.slice(0,10).split('-').reverse().join('/') + ' à ' + user.data.createdAt.slice(11,16)
-            this.postsCount = user.data.postsCount
-            this.commentsCount = user.data.commentsCount
         })
         .catch(function(error) {
             console.log(error);

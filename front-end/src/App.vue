@@ -42,9 +42,6 @@ header{
   display: flex;
   flex-direction: column;
 }
-#app {
-  color: #2c3e50;
-}
 a {
   text-decoration: none;
   color: rgb(0, 0, 0);

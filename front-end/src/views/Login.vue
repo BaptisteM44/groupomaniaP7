@@ -1,28 +1,38 @@
 <template>
-  <main>
-    <section>
-      <div class="formcard">
-        <div class="logo-card">
-          <img src="../assets/images/icon.svg" alt="logo groupomania">
+    <div>
+      <section>
+        <div class="formcard">
+          <div class="logo-card">
+            <img src="../assets/images/icon.svg" alt="logo groupomania">
+          </div>
+          <h2>Login</h2>
+          <form  @submit.prevent="login">
+            <div class="form-container">
+                <input v-on:keydown="isInvalid = false"
+                  v-model="inputEmail"
+                  type="email" 
+                  class="form-control"
+                  aria-describedby="emailHelp" 
+                  placeholder="votre email" />
+            </div>
+            <div class="form-container">
+                <input v-on:keydown="isInvalid = false"
+                v-model="inputPassword" 
+                type="password" 
+                class="form-control"
+                aria-describedby="passwordHelp" 
+                placeholder="votre mot de passe" />
+            </div>
+            <button type="submit">SE CONNECTER</button>
+            <router-link to="/register">Pas de compte ? S'inscrire</router-link>
+          </form>   
         </div>
-        <h2>Login</h2>
-        <form  @submit.prevent="login">
-          <div class="form-container">
-              <input v-on:keydown="isInvalid = false" v-model="inputEmail" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="votre email">
-          </div>
-          <div class="form-container">
-              <input v-on:keydown="isInvalid = false" v-model="inputPassword" type="password" class="form-control" id="inputPassword" aria-describedby="passwordHelp" placeholder="votre mot de passe">                       
-          </div>
-          <button type="submit">SE CONNECTER</button>
-          
-          <router-link to="/register">Pas de compte ? S'inscrire</router-link>
-        </form>   
+        
+      </section>
+      <div class="invalid" v-show="isInvalid">
+            Veuillez vérifier vos informations de connexion
       </div>
-    </section>
-    <div class="invalid" v-show="isInvalid">
-          Veuillez vérifier vos informations de connexion
     </div>
-  </main>
 </template>
 
 <script>
@@ -82,7 +92,7 @@ h2 {
   text-align: center;
 }
 .logo-card img{
-  width: 80%;
+  width: 65%;
 }
 .form-control{
   width: 100%;
@@ -118,6 +128,9 @@ form div{
   display:flex;
   flex-direction: column;
   width:100%;
+}
+.invalid{
+  display: block;
 }
 button {
   align-items: center;

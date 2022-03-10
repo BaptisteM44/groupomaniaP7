@@ -1,5 +1,4 @@
 <template>
-  <main>
     <section>
       <div class="formcard">
         <div class="logo-card">
@@ -34,20 +33,16 @@
               class="form-control"
               v-model="inputPassword"
               type="password"
-              id="inputPassword"
               aria-describedby="passwordHelp"
               placeholder="Votre mot de passe"
               autocomplete="new-password"
             />
           </div>
           <button type="submit">S'inscrire</button>
-          <router-link to="/login">
-          Déjà inscrit ? S'identifier
-          </router-link>
+          <router-link to="/login">Déjà inscrit ? S'identifier</router-link>
         </form>
       </div>
     </section>
-  </main>
 </template>
 
 <script>
@@ -111,7 +106,7 @@ export default {
   justify-content: center;
 }
 .logo-card img{
-  width: 80%;
+  width: 65%;
 }
 h2 {
   margin: 0 0 30px;

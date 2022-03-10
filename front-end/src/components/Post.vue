@@ -1,60 +1,48 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="">
-                <div class="back-post">
-                    <router-link to="/feed" class="">...retour aux posts</router-link>                
+    <div class="container">
+        <div class="back-post">
+            <router-link to="/feed">...retour aux posts</router-link>                
+        </div>
+        <div class="container-post">
+            <!-- VOICI UN Post -->
+            <div class="post-header">
+                <span>
+                    Posté par {{onePost.userName}}
+                    <span v-if="!onePost.isActive">(supprimé)</span>, le {{onePost.createdAt.slice(0,10).split('-').reverse().join('/')}}
+                </span>
+            </div> 
+            <div class="msg-post" :id="'PostContainer' + onePost.id">
+                <p v-if="onePost.post !== ''"> {{onePost.post}} </p>
+            </div>
+            <div class="img-post">
+                <img  :src="onePost.postUrl" v-if="onePost.postUrl !== ''">
+            </div>
+        </div>
+        <div>
+            <form enctype="multipart/form-data">
+                <div class="title-com">
+                    <p>Poster un nouveau commentaire</p>
                 </div>
-                <div class="container-post" id="OnePost">
-                    <!-- VOICI UN Post -->
-                        <div class="post-header">
-                            <span class="">
-                                Posté par {{onePost.userName}}
-                                <span v-if="!onePost.isActive" class="">(supprimé)</span>, 
-                                le {{onePost.createdAt}}
-                            </span>
-                        </div> 
-                        <div class="msg-post" :id="'PostContainer' + onePost.id">
-                            <p class="" v-if="onePost.post !== ''"> {{onePost.post}} </p>
-                        </div>
-                        <div class="img-post">
-                            <img  :src="onePost.postUrl" v-if="onePost.postUrl !== ''">
-                        </div>
-                        <!-- <div >
-                            <p v-if="onePost.comments === 0">Il n'y a aucun commentaire.</p>
-                            <p v-if="onePost.comments > 1">Il y a {{onePost.comments}} commentaires.</p>
-                        </div> -->
-                    <!-- FIN DU Post -->
+                <div class="form-post">
+                    <textarea class="right-post" v-model="newComment" name="comment" rows="10" placeholder="Votre commentaire ici..." required :class="{ 'is-invalid': submitted && !newComment }"></textarea>
                 </div>
-                <div >
-                    <form enctype="multipart/form-data">
-                        <div class="title-com">
-                            <p>Poster un nouveau commentaire</p>
-                        </div>
-                        <div class="form-post">
-                            <textarea class="right-post" v-model="newComment" id="newComment" name="comment" rows="10" placeholder="Votre commentaire ici..." required :class="{ 'is-invalid': submitted && !newComment }"></textarea>
-                            <div v-show="submitted && !newComment">Un commentaire est requis !</div>
-                        </div>
-                        <div class="valid-post">
-                            <button type="submit" @click.prevent="addNewComment()">Valider</button>
-                            <router-link to="/feed" >annuler</router-link>
-                        </div>
-                    </form>
+                <div class="valid-post">
+                    <button type="submit" @click.prevent="addNewComment()">Valider</button>
+                    <router-link to="/feed">annuler</router-link>
                 </div>
-                <div v-for="comment in comments" :key="comment.id" class="block-comments">
-                    <div>
-                        <span class="info-comment">
-                            Commentaire de {{comment.User.userName}} 
-                            <span v-if="!comment.User.isActive">(supprimé)</span>, 
-                            le {{comment.createdAt.slice(0,10).split('-').reverse().join('/')}}
-                            <label @click.prevent="deleteComment(comment.id)" v-if="comment.UserId == this.currentUserId || this.isAdmin == 'true'" class="delete__comment" ><i class="fa fa-fw fa-trash"></i></label>
-                        </span>
-                        <div :id="'adcom' + comment.id" v-if="comment.UserId == this.currentUserId || this.isAdmin == 'true'"></div>
-                    </div>
-                    <div class="comment">
-                        <p> {{comment.comment}}</p>
-                    </div>
-                </div>
+            </form>
+        </div>
+        <div v-for="comment in comments" :key="comment.id" class="block-comments">
+            <div>
+                <span class="info-comment">
+                    Commentaire de {{comment.User.userName}}, 
+                    le {{comment.createdAt.slice(0,10).split('-').reverse().join('/')}}
+                    <label @click.prevent="deleteComment(comment.id)" v-if="comment.UserId == this.currentUserId || this.isAdmin == 'true'" class="delete__comment" ><i class="fa fa-fw fa-trash"></i></label>
+                </span>
+                <div :id="'adcom' + comment.id" v-if="comment.UserId == this.currentUserId || this.isAdmin == 'true'"></div>
+            </div>
+            <div class="comment">
+                <p> {{comment.comment}}</p>
             </div>
         </div>
     </div>
@@ -64,7 +52,7 @@
 import axios from "axios"
 
 export default {
-    name: "Commentaires",
+    name: "onePost",
     data() {
         return {
             newComment: "",
@@ -87,9 +75,8 @@ export default {
             .then(()=> {
                 location.reload();
             })
-            .catch(function(error) {
-                const codeError = error.post.split("code ")[1]
-                console.log(codeError);
+            .catch((error) => {
+                console.log(error);
             })
         },
         deleteComment(commentId) {

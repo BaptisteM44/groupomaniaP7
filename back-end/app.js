@@ -1,5 +1,5 @@
 const express = require("express")
-const app = express()
+const helmet = require("helmet")
 const cors = require("cors")
 const path = require("path")
 const auth = require("./middleware/auth")
@@ -9,8 +9,11 @@ const userRoutes = require("./routes/user")
 const postRoutes = require("./routes/post")
 const commentRoutes = require("./routes/comment")
 
-app.use(cors())
 
+const app = express()
+
+app.use(cors())
+app.use(helmet())
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
